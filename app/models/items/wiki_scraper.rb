@@ -1,16 +1,10 @@
 class WikiScraper < Scraper
 
-  def initialize options={}
-    @agent = Mechanize.new
-    @base_url = "https://he.wikipedia.org/wiki/"
-    @main_element = "#mw-content-text ul"
-    @nested_element = "li"
-    @lists_index = {historic: 2, born: 3, died: 4, events: 5}
-    @current_year = Time.new.year
-    super
-  end
+
+  private
 
   def scrap
+    set_variables
     @date = self.category.broadcast.air_time
     results = fetch
     @lists_index.each do |list, index|
@@ -20,8 +14,14 @@ class WikiScraper < Scraper
     end
   end
 
-
-  private
+  def set_variables
+    @base_url = "https://he.wikipedia.org/wiki/"
+    @main_element = "#mw-content-text ul"
+    @nested_element = "li"
+    @lists_index = {historic: 2, born: 3, died: 4, events: 5}
+    @current_year = Time.new.year
+    super
+  end
 
   def date_formatter
     "#{self.category.broadcast.air_time.day}_#{months[self.category.broadcast.air_time.month]}"

@@ -1,13 +1,10 @@
 class ChartsScraper < Scraper
 
-  def initialize options={}
-    @base_url = "http://www.officialcharts.com/charts/uk-top-40-singles-chart/"
-    @main_element = ".title-artist"
-    @url_params = "/750140"
-    super
-  end
+
+  private
 
   def scrap
+    set_variables
     @date = self.category.broadcast.air_time
     results = fetch
     @content = results.map do |result|
@@ -15,8 +12,12 @@ class ChartsScraper < Scraper
     end
   end
 
-
-  private
+  def set_variables
+    @base_url = "http://www.officialcharts.com/charts/uk-top-40-singles-chart/"
+    @main_element = ".title-artist"
+    @url_params = "/750140"
+    super
+  end
 
   def date_formatter
     self.category.broadcast.air_time.strftime("%Y%m%d")

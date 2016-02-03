@@ -1,18 +1,18 @@
 require 'mechanize'
 class Scraper < Item
 
-  def initialize options={}
-    @agent = Mechanize.new
-    @content = {}
-    super
-  end
-
   def data
-    @content
+    scrap
+    super @content
   end
 
 
   protected
+
+  def set_variables
+    @agent = Mechanize.new
+    @content = {}
+  end
 
   def fetch
     build_url

@@ -5,8 +5,8 @@ class Item < ActiveRecord::Base
 
   validates_presence_of :category_id
 
-  def data
-    raise NotImplementedError, "#{self.class.name} does not implement data()"
+  def data content
+    content.merge({type: self.type})
   end
 
 end

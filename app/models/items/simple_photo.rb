@@ -1,7 +1,7 @@
 class SimplePhoto < Item
 
   def data
-    {description: self.content.description, path: path_to_picture}
+    super({description: self.content.description, path: path_to_picture})
   end
 
   alias_method :path, :data
