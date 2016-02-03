@@ -1,7 +1,7 @@
 class SimpleContent < Item
 
   def data
-    self.content
+    self.content.as_json(only: [:description, :data])
   end
 
 end
